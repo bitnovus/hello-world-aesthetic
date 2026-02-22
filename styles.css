@@ -1,0 +1,225 @@
+:root {
+  --bg: #f5efe6;
+  --ink: #1f2a30;
+  --accent: #d66049;
+  --accent-2: #1b8f84;
+  --card: rgba(255, 249, 240, 0.62);
+  --edge: rgba(31, 42, 48, 0.15);
+  --timeline-ms: 3600ms;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  background:
+    radial-gradient(circle at 8% 18%, #f7d9a8 0%, transparent 42%),
+    radial-gradient(circle at 85% 10%, #a8e3db 0%, transparent 44%),
+    radial-gradient(circle at 75% 86%, #f6b6a4 0%, transparent 38%),
+    var(--bg);
+  color: var(--ink);
+  font-family: Manrope, "Avenir Next", Avenir, sans-serif;
+  overflow: hidden;
+}
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(2px);
+  opacity: 0.46;
+  mix-blend-mode: multiply;
+}
+
+.blob-a {
+  width: 34vmax;
+  height: 34vmax;
+  left: -10vmax;
+  top: 18vh;
+  background: #f2aa74;
+  animation: drift-a 18s ease-in-out infinite alternate;
+}
+
+.blob-b {
+  width: 28vmax;
+  height: 28vmax;
+  right: -8vmax;
+  top: -8vmax;
+  background: #66bcb2;
+  animation: drift-b 22s ease-in-out infinite alternate;
+}
+
+.blob-c {
+  width: 26vmax;
+  height: 26vmax;
+  right: 26vw;
+  bottom: -12vmax;
+  background: #db6f59;
+  animation: drift-c 20s ease-in-out infinite alternate;
+}
+
+.grain {
+  position: absolute;
+  inset: -100%;
+  background-image: radial-gradient(rgba(0, 0, 0, 0.045) 0.7px, transparent 0.7px);
+  background-size: 4px 4px;
+  opacity: 0.35;
+  animation: grain-shift 7s steps(9) infinite;
+}
+
+.stage {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.card {
+  width: min(760px, 100%);
+  background: var(--card);
+  border: 1px solid var(--edge);
+  border-radius: 32px;
+  padding: clamp(28px, 4vw, 48px);
+  backdrop-filter: blur(10px) saturate(110%);
+  box-shadow:
+    0 22px 70px rgba(31, 42, 48, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.label {
+  margin: 0 0 16px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: rgba(31, 42, 48, 0.72);
+}
+
+h1 {
+  margin: 0;
+  font-family: Fraunces, Georgia, serif;
+  font-size: clamp(2rem, 7vw, 5rem);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+  transition:
+    opacity 320ms ease,
+    transform 440ms cubic-bezier(0.18, 0.66, 0.16, 1);
+}
+
+.meta {
+  margin: 18px 0 26px;
+  font-size: clamp(0.95rem, 2.1vw, 1.22rem);
+  color: rgba(31, 42, 48, 0.8);
+  transition:
+    opacity 320ms ease,
+    transform 440ms cubic-bezier(0.18, 0.66, 0.16, 1);
+}
+
+h1.is-out,
+.meta.is-out {
+  opacity: 0;
+  transform: translateY(14px);
+}
+
+h1.is-in,
+.meta.is-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.timeline {
+  height: 4px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(31, 42, 48, 0.14);
+}
+
+.timeline-fill {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  transform-origin: left center;
+  animation: timeline var(--timeline-ms) linear infinite;
+}
+
+@keyframes timeline {
+  0% {
+    transform: scaleX(0);
+  }
+
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes drift-a {
+  0% {
+    transform: translate(-4%, -4%) rotate(0deg);
+  }
+
+  100% {
+    transform: translate(8%, 3%) rotate(14deg);
+  }
+}
+
+@keyframes drift-b {
+  0% {
+    transform: translate(2%, -3%) rotate(0deg);
+  }
+
+  100% {
+    transform: translate(-10%, 8%) rotate(-11deg);
+  }
+}
+
+@keyframes drift-c {
+  0% {
+    transform: translate(0%, 0%) rotate(0deg);
+  }
+
+  100% {
+    transform: translate(8%, -8%) rotate(9deg);
+  }
+}
+
+@keyframes grain-shift {
+  0% {
+    transform: translate(0, 0);
+  }
+
+  100% {
+    transform: translate(8%, 6%);
+  }
+}
+
+@media (max-width: 680px) {
+  body {
+    overflow: auto;
+  }
+
+  .card {
+    border-radius: 22px;
+    padding: 26px 20px;
+  }
+
+  .meta {
+    margin-top: 14px;
+    margin-bottom: 20px;
+  }
+}
