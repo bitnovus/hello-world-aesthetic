@@ -5,6 +5,8 @@
 
 An aesthetic, animated "Hello, world!" web app that rotates through greetings in multiple languages.
 
+Note: This repository is a Codex experiment.
+
 Live page: https://bitnovus.github.io/hello-world-aesthetic/
 
 ## Screenshots
